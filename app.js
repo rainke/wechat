@@ -2,7 +2,7 @@ var Koa = require('koa');
 var sha1 = require('sha1');
 var config = {
 	wechat:{
-		appId:'wx027405581ed8f1ee',
+		appId:'wx7aecd428bc14d399',
 		appScret: '6701c1e512c9840713d432f45dccdd7b',
 		token: 'weixin'
 	}
@@ -27,4 +27,5 @@ app.use(function *(next) {
 	}
 });
 app.listen(80, '139.224.53.16');
+
 console.log('start');
