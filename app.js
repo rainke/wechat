@@ -26,5 +26,5 @@ app.use(function *(next) {
 		this.body = 'wrong';
 	}
 });
-app.listen(1234);
+app.listen(80, '139.224.53.16');
 console.log('start');
