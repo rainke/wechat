@@ -3,7 +3,7 @@ var sha1 = require('sha1');
 var config = {
 	wechat:{
 		appId:'wx027405581ed8f1ee',
-		appScret: '6701c1e512c9840713d432f45dccdd7b ',
+		appScret: '6701c1e512c9840713d432f45dccdd7b',
 		token: 'weixin'
 	}
 }
