@@ -19,7 +19,7 @@ function Wechat(opts) {
       } catch (e) {
         return that.updateAccessToken(data)
       }
-      if(thiat.isValidAccessToken(data)) {
+      if(that.isValidAccessToken(data)) {
         Promise.resolve(data)
       } else {
         return that.updateAccessToken();
@@ -49,10 +49,11 @@ Wechat.prototype.updateAccessToken = function () {
   var appID = this.appID;
   var appSecret = this.appSecret;
   var url = api.accessToken + '&appid=' + appID +'&secret=' + appSecret;
+  // url = 'https://api.douban.com/v2/book/1220562';
   return new Promise( function(resolve, reject) {
-    request({url:url,json:true})
-    .then(function(res) {
-      var data = res[1];
+    request({url:url,json:true}).then(function(res) {
+      var data = res.body;
+      console.log(data);
       var now = new Date() * 1;
       var expires_in = now + (data.expires_in - 20) * 1000;
       data.expires_in = expires_in;
