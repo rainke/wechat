@@ -1,6 +1,7 @@
 var sha1 = require('sha1');
 var getRawBody = require('raw-body');
 var Wechat = require('./wechat');
+var util =require('./util');
 
 module.exports = function(opts) {
   // var wechat = new Wechat(opts);
@@ -13,7 +14,7 @@ module.exports = function(opts) {
 
     var str = [token, timestamp, nonce].sort().join('');
     var sha = sha1(str);
-
+    console.log(this.method);
     if(this.method == 'GET') {
       if (sha === signature) {
         this.body = echostr + '';
@@ -32,7 +33,10 @@ module.exports = function(opts) {
         encoding: this.charset
       });
 
-      console.log(data.toString());
+      var content = yield util.parseXMLAsync(data)
+      console.log(content);
+      var message = util.formatMesage(content.xml);
+      console.log(message);
     }
     
   }
