@@ -35,8 +35,36 @@ module.exports = function(opts) {
 
       var content = yield util.parseXMLAsync(data)
       console.log(content);
-      var message = util.formatMesage(content.xml);
+      var message = util.formatMessage(content.xml);
       console.log(message);
+
+      if(message.MsgType == 'event') {
+        if(message.Event === 'subscribe') {
+          var now = new Date() * 1;
+          this.status = 200;
+          this.type = 'application/xml';
+          this.body = `<xml>
+              <ToUserName><![CDATA[${message.FromUserName}]]></ToUserName>
+              <FromUserName><![CDATA[${message.ToUserName}]]></FromUserName>
+              <CreateTime>${now}</CreateTime>
+              <MsgType><![CDATA[text]]></MsgType>
+              <Content><![CDATA[hi, 感谢你的关注]]></Content>
+              </xml>`;
+          return;
+        }
+      } else if(message.MsgType == 'text') {
+        var now = new Date() * 1;
+        this.status = 200;
+        this.type = 'application/xml';
+        this.body = `<xml>
+            <ToUserName><![CDATA[${message.FromUserName}]]></ToUserName>
+            <FromUserName><![CDATA[${message.ToUserName}]]></FromUserName>
+            <CreateTime>${now}</CreateTime>
+            <MsgType><![CDATA[text]]></MsgType>
+            <Content><![CDATA[你输入了:${message.Content}]]></Content>
+            </xml>`;
+        return;
+      }
     }
     
   }
