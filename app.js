@@ -23,7 +23,7 @@ var config = {
 var app = new Koa();
 
 app.use(wechat(config.wechat));
-app.listen('1234')
-// app.listen(80, '139.224.53.16');
+// app.listen('1234')
+app.listen(80, '139.224.53.16');
 
 console.log('start');

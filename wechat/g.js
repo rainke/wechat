@@ -5,7 +5,6 @@ var Wechat = require('./wechat');
 module.exports = function(opts) {
   // var wechat = new Wechat(opts);
   return function*(next) {
-    console.log(this.request.method == this.method);
     var token = opts.token;
     var signature = this.query.signature;
     var nonce = this.query.nonce;
