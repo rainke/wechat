@@ -52,6 +52,7 @@ exports.tpl = function(content, message) {
 	}
 	type = content.type || type;
 	info.content = content;
+	info.createTime = new Date() * 1;
 	info.msgType = type;
 	info.toUsername = fromUsername;
 	info.fromUsername = toUsername;
