@@ -1,10 +1,11 @@
 var Promise = require('bluebird');
 var request = Promise.promisify(require('request'));
-
+var fs = require('fs');
 var util = require('./util');
-var prefix = 'https://api.weixin.qq.com/cgi-bin/token';
+var prefix = 'https://api.weixin.qq.com/cgi-bin/';
 var api = {
-  accessToken: prefix + '?grant_type=client_credential'
+  accessToken: prefix + 'token?grant_type=client_credential',
+  upload: prefix + 'media/upload'
 }
 
 function Wechat(opts) {
@@ -14,6 +15,15 @@ function Wechat(opts) {
   this.getAccessToken = opts.getAccessToken
   this.saveAccessToken = opts.saveAccessToken
 
+  
+}
+Wechat.prototype.fetchAccessToken = function(){
+  var that = this;
+  if(this.access_token && this.expires_in) {
+    if(this.isValidAccessToken(this)) {
+      return Promise.resolve(this);
+    }
+  }
   this.getAccessToken()
     .then(function(data) {
       try {
@@ -31,8 +41,10 @@ function Wechat(opts) {
       that.access_token = data.access_token;
       that.expires_in = data.expires_in;
       that.saveAccessToken(data);
+      return Promise.resolve(data);
     })
 }
+
 Wechat.prototype.isValidAccessToken = function(data) {
   if(!data || !data.access_token || !data.expires_in) {
     return false;
@@ -50,8 +62,7 @@ Wechat.prototype.isValidAccessToken = function(data) {
 Wechat.prototype.updateAccessToken = function () {
   var appID = this.appID;
   var appSecret = this.appSecret;
-  var url = api.accessToken + '&appid=' + appID +'&secret=' + appSecret;
-  // url = 'https://api.douban.com/v2/book/1220562';
+  var url = `${api.accessToken}&appid=${appID}&secret=${appSecret}`;
   return new Promise( function(resolve, reject) {
     request({url:url,json:true}).then(function(res) {
       var data = res.body;
@@ -63,6 +74,37 @@ Wechat.prototype.updateAccessToken = function () {
     })
   })
 }
+
+Wechat.prototype.uploadMaterial = function (type, filepath) {
+  var that = this;
+  var form ={
+    media: fs.createReadStream(filepath),
+  }
+
+
+  var appID = this.appID;
+  var appSecret = this.appSecret;
+
+  return new Promise( function(resolve, reject) {
+    that.fetchAccessToken()
+    .then(function(data){
+      var url = api.upload + '?access_token='+ data.access_token+'&type=' + type;
+      request({method: 'POST', url:url, formData: form, json:true})
+      .then(function(res) {
+        var _data = res.body;
+        if(_data) resolve(_data);
+        else throw new Error('Upload fails');
+      })
+      .catch(function(err) {
+        reject(err);
+      })
+    })
+
+
+  })
+}
+
+
 
 Wechat.prototype.reply = function() {
   var content = this.body;
