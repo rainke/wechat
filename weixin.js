@@ -6,13 +6,13 @@ exports.reply = function* (next) {
 	if(message.MsgType == 'event') {
 		if(message.Event == 'subscribe'){
 			if(message.EventKey) {
-				console.log('qrcode${message.EventKey} ${message.ticket}')
+				console.log(`qrcode${message.EventKey} ${message.ticket}`)
 			}
 			this.body = 'haha,订阅了'
 		} else if(message.Event =='unsubscribe') {
 			this.body = '无情取关'
 		} else if(message.Event == 'LOCATION'){
-			this.body = 'you location is ${message.Latitude} ${message.Longitude} ${message.Precision}'
+			this.body = `you location is ${message.Latitude} ${message.Longitude} ${message.Precision}`
 		} else if(message.Event === 'CLICK') {
 
 		} else if(message.Event === 'SCAN') {
@@ -24,7 +24,7 @@ exports.reply = function* (next) {
 
 	} else if(message.MsgType == 'text') {
 		var content = message.Content;
-		var reply = '你说的${content} 太复杂了';
+		var reply = `你说的${content} 太复杂了`;
 		if(content === '1') {
 			reply = '天下第一';
 		} else if(content == '3') {
