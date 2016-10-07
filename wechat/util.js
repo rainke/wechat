@@ -1,6 +1,6 @@
 var xml2js = require('xml2js');
 var Promise= require('bluebird');
-
+var tpl = require('./tpl');
 exports.parseXMLAsync = function(xml) {
 	return new Promise(function(resolve, reject) {
 		xml2js.parseString(xml, {trim: true}, function(err,content){
@@ -41,3 +41,19 @@ function formatMessage(result) {
 }
 
 exports.formatMessage = formatMessage;
+
+exports.tpl = function(content, message) {
+	var info = {};
+	var type = 'text';
+	var fromUsername = message.FromUserName;
+	var toUsename = message.ToUserName;
+	if(Array.isArray(content)) {
+		type = 'news';
+	}
+	type = content.type || type;
+	info.content = content;
+	info.msgType = type;
+	info.toUsername = fromUsername;
+	info.fromUsername = toUsername;
+	return tpl.complied(info);
+}
