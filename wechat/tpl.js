@@ -3,7 +3,7 @@ var heredoc = require('heredoc');
 var tpl = heredoc(function() {/*
 	<xml>
     <ToUserName><![CDATA[<%= toUsername%>]]></ToUserName>
-    <FromUserName><![CDATA[<%= formUsername%>]]></FromUserName>
+    <FromUserName><![CDATA[<%= fromUsername%>]]></FromUserName>
     <CreateTime><%= createTime%></CreateTime>
     <MsgType><![CDATA[<%= msgType %>]]></MsgType>
     <% if(msgType === 'text') { %>
