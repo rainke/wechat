@@ -55,5 +55,5 @@ exports.tpl = function(content, message) {
 	info.msgType = type;
 	info.toUsername = fromUsername;
 	info.fromUsername = toUsername;
-	return tpl.complied(info);
+	return tpl.compiled(info);
 }
