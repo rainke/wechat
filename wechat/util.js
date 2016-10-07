@@ -46,7 +46,7 @@ exports.tpl = function(content, message) {
 	var info = {};
 	var type = 'text';
 	var fromUsername = message.FromUserName;
-	var toUsename = message.ToUserName;
+	var toUsername = message.ToUserName;
 	if(Array.isArray(content)) {
 		type = 'news';
 	}
