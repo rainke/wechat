@@ -43,7 +43,7 @@ exports.reply = function* (next) {
 				url:'https://github.com'
 			}]
 		} else if(content == '5') {
-			var data = yield wechatApi.uploadMaterial('image', path.join(__dirname,'./static/1.jpg'))
+			yield wechatApi.uploadMaterial('image', path.join(__dirname,'./static/1.jpg'))
 			.then(function(data) {
 				console.log('46', data);
 				reply = {
@@ -52,8 +52,9 @@ exports.reply = function* (next) {
 				}
 			})
 		} else if(content == '6') {
-			var data = yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.flv'))
+			yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.flv'))
 			.then(function(data) {
+				console.log(data);
 				reply = {
 					type:'video',
 					mediaId:data.media_id
