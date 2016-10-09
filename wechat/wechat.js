@@ -24,7 +24,7 @@ Wechat.prototype.fetchAccessToken = function(){
       return Promise.resolve(this);
     }
   }
-  this.getAccessToken()
+  return this.getAccessToken()
     .then(function(data) {
       try {
         data = JSON.parse(data)
