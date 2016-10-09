@@ -52,10 +52,10 @@ exports.reply = function* (next) {
 				}
 			})
 		} else if(content == '6') {
-			var data = yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/1.jpg'))
+			var data = yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.flv'))
 			.then(function(data) {
 				reply = {
-					type:'image',
+					type:'video',
 					mediaId:data.media_id
 				}
 			})
