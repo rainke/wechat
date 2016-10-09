@@ -44,6 +44,7 @@ exports.reply = function* (next) {
 		} else if(content == '5') {
 			var data = yield wechatApi.uploadMaterial('image', './static/1.jpg')
 			.then(function(data) {
+				console.log('46', data);
 				reply = {
 					type:'image',
 					mediaId:data.media_id
