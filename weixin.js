@@ -57,6 +57,8 @@ exports.reply = function* (next) {
 				console.log(data);
 				reply = {
 					type:'video',
+					title:'学习redux',
+					description:'呵呵',
 					mediaId:data.media_id
 				}
 			})
