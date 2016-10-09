@@ -2,6 +2,7 @@
 var config = require('./config')
 var Wechat = require('./wechat/wechat')
 var wechatApi = new Wechat(config.wechat);
+var path = require('path');
 
 
 exports.reply = function* (next) {
@@ -42,7 +43,7 @@ exports.reply = function* (next) {
 				url:'https://github.com'
 			}]
 		} else if(content == '5') {
-			var data = yield wechatApi.uploadMaterial('image', './static/1.jpg')
+			var data = yield wechatApi.uploadMaterial('image', path.join(__dirname,'./static/1.jpg'))
 			.then(function(data) {
 				console.log('46', data);
 				reply = {
@@ -51,7 +52,7 @@ exports.reply = function* (next) {
 				}
 			})
 		} else if(content == '6') {
-			var data = yield wechatApi.uploadMaterial('video', './static/2.flv')
+			var data = yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/1.jpg'))
 			.then(function(data) {
 				reply = {
 					type:'image',
