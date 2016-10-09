@@ -49,6 +49,14 @@ exports.reply = function* (next) {
 					mediaId:data.media_id
 				}
 			})
+		} else if(content == '6') {
+			var data = yield wechatApi.uploadMaterial('video', './static/2.flv')
+			.then(function(data) {
+				reply = {
+					type:'image',
+					mediaId:data.media_id
+				}
+			})
 		}
 		this.body = reply
 	}
