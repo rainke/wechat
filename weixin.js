@@ -52,7 +52,7 @@ exports.reply = function* (next) {
 				}
 			})
 		} else if(content == '6') {
-			yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.mp4'))
+			yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.MP4'))
 			.then(function(data) {
 				console.log(data);
 				reply = {
