@@ -52,16 +52,22 @@ exports.reply = function* (next) {
 				}
 			})
 		} else if(content == '6') {
-			yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.MP4'))
-			.then(function(data) {
-				console.log(data);
-				reply = {
-					type:'video',
-					title:'学习redux',
-					description:'呵呵',
-					mediaId:data.media_id
-				}
-			})
+			reply = {
+				type:'video',
+				title:'学习redux',
+				description:'呵呵',
+				mediaId:'n0VY2HEsaITw0vawkcVy796x0j4nSZ9Vu9SFqAUvC2mHciZYTAGPQIu2mua5wxcw'
+			}
+			// yield wechatApi.uploadMaterial('video', path.join(__dirname,'./static/2.MP4'))
+			// .then(function(data) {
+			// 	console.log(data);
+			// 	reply = {
+			// 		type:'video',
+			// 		title:'学习redux',
+			// 		description:'呵呵',
+			// 		mediaId:data.media_id
+			// 	}
+			// })
 		}
 		this.body = reply
 	}
