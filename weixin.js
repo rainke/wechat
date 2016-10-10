@@ -80,6 +80,27 @@ exports.reply = function* (next) {
 				}
 			})
 			
+		} else if(content == '8') {
+			yield wechatApi.uploadMaterial('image', path.join(__dirname,'./static/1.jpg'),{type: 'image'})
+			.then(function(data) {
+				console.log('46', data);
+				reply = {
+					type:'image',
+					mediaId:data.media_id
+				}
+			})
+		}else if(content == '9') {
+			yield wechatApi.uploadMaterial('image',
+				path.join(__dirname,'./static/1.jpg'),
+				{type: 'image'}
+			)
+			.then(function(data) {
+				console.log('46', data);
+				reply = {
+					type:'image',
+					mediaId:data.media_id
+				}
+			})
 		}
 		this.body = reply
 	}
