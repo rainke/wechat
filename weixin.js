@@ -68,6 +68,18 @@ exports.reply = function* (next) {
 			// 		mediaId:data.media_id
 			// 	}
 			// })
+		} else if(content == 7) {
+			yield wechatApi.uploadMaterial('image', path.join(__dirname,'./static/2.jpg'))
+			.then(function(data) {
+				reply = {
+					type: 'music',
+					title:'陪俺',
+					description: '小戏骨',
+					musicUrl:'http://so1.111ttt.com:8282/2016/1/10/10/203101332271.mp3?tflag=1476078544&pin=79a6913db9059979e3b65088426852bc&ip=125.71.161.91#.mp3',
+					thumbMediaId: data.media_id
+				}
+			})
+			
 		}
 		this.body = reply
 	}
